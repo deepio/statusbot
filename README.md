@@ -4,7 +4,7 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 
 ### Configure
 
-- Write a JSON file that has the name and the URL of the site you wish to track the status of in Slack. You could replace the `test.json` file.
+- To let statusbot know what sites to ping, write a JSON file that has the name and the URL of the site you wish to track the status of in Slack. You could replace the `config/test.json` file.
 
 ```JSON
 {
@@ -37,10 +37,10 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 `./statusbot -file ./test.json`
 
 - You can specify the channel you want to send the messages to:
-`./statusbot -chan "#dev-ops" -file ./test.json`
+`./statusbot -chan "#dev-ops"`
 
 - Specify the interval you want the bot to ping the host in seconds.
-`./statusbot -file ./test.json -wait 1`
+`./statusbot -wait 1`
 
 - All of the above in random order:
 `./statusbot -wait 1 -file ./test.json -chan "#dev-ops"`
