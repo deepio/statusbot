@@ -25,6 +25,16 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 
 - Set your Slack WebHook in the `docker-compose.yml` file
 - `docker-compose up`
+  - Or you can also do this:
+
+  ```bash
+  docker run \
+    -v "/Users/[...]/statusbot/config:/tmp" \
+    -e SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX \
+    -t d33pi0/statusbot \
+    statusbot # with the channel or a different wait (e.g., -wait 1 -chan "#dev-ops")
+  ```
+
 
 ### Build it yourself
 
