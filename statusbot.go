@@ -147,7 +147,6 @@ func Watch(sites File, watch_interval int, channel string) {
 	fmt.Println("Starting watch...")
 
 	for {
-		time.Sleep(time.Second * time.Duration(watch_interval))
 
 		for i := 0; i < len(sites.Sites); i++ {
 			response, _ := sites.Sites[i].GetStatus()
@@ -174,6 +173,7 @@ func Watch(sites File, watch_interval int, channel string) {
 			}
 		}
 
+		time.Sleep(time.Second * time.Duration(watch_interval))
 	}
 }
 

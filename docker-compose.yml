@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  statusbot:
+    image: d33pi0/statusbot:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # command: statusbot -file=/tmp/test.json -wait=1 -chan=#statusbot
+    command: statusbot
+    volumes:
+      # Add your file to the local config directory
+      - ./config:/tmp
+    environment:
+      # Replace with your hook
+      - SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX

@@ -2,14 +2,9 @@
 
 Very minimalistic script to ping servers and send slack notifications when a status in the server changes. Just build, configure, and run.
 
-### Build
-
-- Install go
-- `make build`
-
 ### Configure
 
-- Write a JSON file that has the name and the URL of the site you wish to track the status of in Slack.
+- Write a JSON file that has the name and the URL of the site you wish to track the status of in Slack. You could replace the `test.json` file.
 
 ```JSON
 {
@@ -26,10 +21,17 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 }
 ```
 
-- Set your Slack WebHook as an environment variable:
-  - `export SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX`
+### Run inside a container
 
-### Execute
+- Set your Slack WebHook in the `docker-compose.yml` file
+- `docker-compose up`
+
+### Build it yourself
+
+- Install go
+- `make build`
+
+### Examples
 
 - From the same directory where the StatusBot binary exists:
 `./statusbot -file ./test.json`
