@@ -104,18 +104,8 @@ func ParseConf(filepath string) File {
 }
 
 func SlackSend(message string, colour int, channel string) {
-	// Check if Environment Variable is set
+
 	url := getEnv("SLACK_WEBHOOK", "")
-	if url == "" {
-		fmt.Println(`
-The environment variable "SLACK_WEBHOOK" does not exist.
-Please add the slack webhook environment variable to use this software.
-
-export SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
-		`)
-		os.Exit(1)
-	}
-
 	msg := SlackMessage{}
 	msg.Username = "StatusBot"
 	msg.IconEmoji = ":space_invader:"
@@ -154,17 +144,18 @@ func Watch(sites File, watch_interval int, channel string) {
 			if sites.Sites[i].OldStatus == response {
 				continue
 			} else {
-				if response == UP {
+				switch response {
+				case UP:
 					sites.Sites[i].OldStatus = UP
 					fmt.Printf("Site %s is ok.\n", sites.Sites[i].Name)
 					msg := fmt.Sprintf("*%s* is back to normal.", sites.Sites[i].Name)
 					SlackSend(msg, UP, channel)
-				} else if response == DOWN {
+				case DOWN:
 					fmt.Printf("Site %s is down.\n", sites.Sites[i].Name)
 					sites.Sites[i].OldStatus = DOWN
 					msg := fmt.Sprintf("*%s* is down!! Link <%s>.", sites.Sites[i].Name, sites.Sites[i].URL)
 					SlackSend(msg, DOWN, channel)
-				} else if response == ERROR {
+				case ERROR:
 					fmt.Printf("Site %s is err.\n", sites.Sites[i].Name)
 					sites.Sites[i].OldStatus = ERROR
 					msg := fmt.Sprintf("*%s* is experiencing errors. Link <%s>.", sites.Sites[i].Name, sites.Sites[i].URL)
@@ -182,6 +173,18 @@ func main() {
 	wait_interval := flag.Int("wait", 15, "Ping interval to use for all sites")
 	channel := flag.String("chan", "#status-bot", "Slack channel to send notifications to.")
 	flag.Parse()
+
+	// Check if Environment Variable is set
+	url := getEnv("SLACK_WEBHOOK", "")
+	if url == "" {
+		fmt.Println(`
+The environment variable "SLACK_WEBHOOK" does not exist.
+Please add the slack webhook environment variable to use this software.
+
+export SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+		`)
+		os.Exit(1)
+	}
 
 	SlackSend("SlackBot is connected.", NORMAL, *channel)
 	f := ParseConf(*filepath)
