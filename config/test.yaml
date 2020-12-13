@@ -1,0 +1,5 @@
+sites:
+  - name: "TestBot"
+    url: "http://localhost:8000/"
+  - name: "TestBot Rand"
+    url: "http://localhost:8000/rand"

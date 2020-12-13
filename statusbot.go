@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -59,13 +61,19 @@ type File struct {
 	// 	OldStatus int    `json:"omitempty"` // Optional starting status
 	// } `json:"sites"`
 
-	Sites []Site `json:"sites"`
+	// Sites []Site `json:"sites"`
+
+	Sites []Site `yaml:"sites"`
 }
 
 type Site struct {
-	Name      string `json:"name"`      // Name of the service you want to appear
-	URL       string `json:"url"`       // URL of the service you want to monitor
-	OldStatus int    `json:"omitempty"` // Optional starting status
+	// Name      string `json:"name"`      // Name of the service you want to appear
+	// URL       string `json:"url"`       // URL of the service you want to monitor
+	// OldStatus int    `json:"omitempty"` // Optional starting status
+
+	Name      string `yaml:"name"`
+	URL       string `yaml:"url"`
+	OldStatus int    `yaml:"omitempty"`
 }
 
 func (s Site) GetStatus() (int, error) {
@@ -92,7 +100,8 @@ func ParseConf(filepath string) File {
 
 	file, _ := ioutil.ReadFile(filepath)
 	data := File{}
-	_ = json.Unmarshal([]byte(file), &data)
+	// _ = json.Unmarshal([]byte(file), &data)
+	_ = yaml.Unmarshal([]byte(file), &data)
 
 	// // Debug
 	// // fmt.Printf("%+v", data)
