@@ -2,6 +2,7 @@ FROM golang:alpine as build
 
 COPY ./statusbot.go ./testbot.go /opt/
 RUN cd /opt \
+  && apk add --no-cache git \
   && go get gopkg.in/yaml.v2 \
   && go build statusbot.go \
   && go build testbot.go
