@@ -55,22 +55,10 @@ type SlackAttachment struct {
 }
 
 type File struct {
-	// Sites []struct {
-	// 	Name      string `json:"name"`      // Name of the service you want to appear
-	// 	URL       string `json:"url"`       // URL of the service you want to monitor
-	// 	OldStatus int    `json:"omitempty"` // Optional starting status
-	// } `json:"sites"`
-
-	// Sites []Site `json:"sites"`
-
 	Sites []Site `yaml:"sites"`
 }
 
 type Site struct {
-	// Name      string `json:"name"`      // Name of the service you want to appear
-	// URL       string `json:"url"`       // URL of the service you want to monitor
-	// OldStatus int    `json:"omitempty"` // Optional starting status
-
 	Name      string `yaml:"name"`
 	URL       string `yaml:"url"`
 	OldStatus int    `yaml:"omitempty"`
@@ -100,7 +88,6 @@ func ParseConf(filepath string) File {
 
 	file, _ := ioutil.ReadFile(filepath)
 	data := File{}
-	// _ = json.Unmarshal([]byte(file), &data)
 	_ = yaml.Unmarshal([]byte(file), &data)
 
 	// // Debug
@@ -178,8 +165,8 @@ func Watch(sites File, watch_interval int, channel string) {
 }
 
 func main() {
-	filepath := flag.String("file", "/tmp/test.json", "A filepath to the config file")
-	wait_interval := flag.Int("wait", 15, "Ping interval to use for all sites")
+	filepath := flag.String("file", "/tmp/test.yaml", "A filepath to the config file written in YAML or JSON/")
+	wait_interval := flag.Int("wait", 15, "Ping interval to use for all sites.")
 	channel := flag.String("chan", "#status-bot", "Slack channel to send notifications to.")
 	flag.Parse()
 

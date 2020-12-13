@@ -11,6 +11,7 @@ FROM alpine:latest
 
 ENV PATH=/opt:/usr/bin:/bin/
 COPY --from=build /opt/statusbot /opt/testbot /opt/
+COPY ./config/test.yaml /tmp
 COPY ./config/test.json /tmp
 
 WORKDIR /opt

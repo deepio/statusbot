@@ -4,7 +4,19 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 
 ### Configure
 
-- To let statusbot know what sites to ping, write a JSON file that has the name and the URL of the site you wish to track the status of in Slack. You could replace the `config/test.json` file.
+- To let `statusbot` know what sites to ping, write a YAML file that has the name and the URL of the site you wish to track the status of in Slack. You could replace the `config/test.yaml` file.
+
+```yaml
+sites:
+  - name: "TestBot"
+    url: "http://localhost:8000/"
+  - name: "TestBot - Rand"
+    url: "http://localhost:8000/rand"
+```
+
+- You can write your configuration as a JSON file instead if you want.
+  
+  > Since [YAML 1.2](https://yaml.org/spec/1.2/spec.html), JSON is regarded as valid YAML. What this means for you the user is that you can choose to write your configuration file in YAML or in JSON and it will not make a difference to `statusbot`.
 
 ```JSON
 {
@@ -35,16 +47,15 @@ Very minimalistic script to ping servers and send slack notifications when a sta
     statusbot # with the channel or a different wait (e.g., -wait 1 -chan "#dev-ops")
   ```
 
-
 ### Build it yourself
 
-- Install go
-- `make build`
+- Install [go](https://golang.org/doc/install)
+- Run `make build`
 
 ### Examples
 
 - From the same directory where the StatusBot binary exists:
-`./statusbot -file ./test.json`
+`./statusbot -file ./test.yaml`
 
 - You can specify the channel you want to send the messages to:
 `./statusbot -chan "#dev-ops"`
@@ -53,7 +64,7 @@ Very minimalistic script to ping servers and send slack notifications when a sta
 `./statusbot -wait 1`
 
 - All of the above in random order:
-`./statusbot -wait 1 -file ./test.json -chan "#dev-ops"`
+`./statusbot -wait 1 -file ./test.yaml -chan "#dev-ops"`
 
 ### TestBot
 
