@@ -182,7 +182,7 @@ export SLACK_WEBHOOK=https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXX
 		os.Exit(1)
 	}
 
-	SlackSend("SlackBot is connected.", NORMAL, *channel)
+	SlackSend("Statusbot is connected.", NORMAL, *channel)
 	f := ParseConf(*filepath)
 	Watch(f, *wait_interval, *channel)
 }
